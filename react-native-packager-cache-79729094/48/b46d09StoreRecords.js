@@ -40,7 +40,6 @@ var StoreRecords = function (_Component) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-
               setTimeout(function () {
                 var sound = new _reactNativeSound2.default(_this2.props.audioPath, '', function (error) {
                   if (error) {

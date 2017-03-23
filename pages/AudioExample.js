@@ -14,30 +14,30 @@ export default class AudioExample extends Component {
 
   constructor(props) {
     super(props);
-    this.state={
-      time:null,
-      name:"Test.aac",
-      audioPath:null,
-      recording:null
+    this.state = {
+      time: null,
+      name: "Test.aac",
+      audioPath: null,
+      recording: null
     }
   }
 
 
   _setTime(date) {
-    var value=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    this.setState({time:value})
+    var value = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.setState({time: value})
   }
 
   _setName(value) {
-    this.setState({name:value})
+    this.setState({name: value})
   }
 
   _setAudio(value) {
-    this.setState({audioPath:value})
+    this.setState({audioPath: value})
   }
 
   _setRecord(value) {
-    this.setState({recording:value})
+    this.setState({recording: value})
   }
 
   render() {
@@ -69,15 +69,15 @@ export default class AudioExample extends Component {
   }
 }
 
-  const styles = StyleSheet.create({
-     container: {
-        flex: 1,
-        backgroundColor:'transparent',
-      },
-      scrollBar: {
-        marginTop:50,
-        backgroundColor:'#149be0'
-      },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor:'transparent',
+  },
+  scrollBar: {
+    marginTop:50,
+    backgroundColor:'#149be0'
+  },
+});
 
 AppRegistry.registerComponent('AudioExample', () => AudioExample);

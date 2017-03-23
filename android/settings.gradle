@@ -1,8 +1,6 @@
 rootProject.name = 'AudioExample'
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
-include ':react-native-file-provider'
-project(':react-native-file-provider').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-file-provider/android')
 include ':react-native-record-sound'
 project(':react-native-record-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-record-sound/android')
 include ':react-native-sound'

@@ -12,10 +12,6 @@ var _reactNativeDropdownalert = require('react-native-dropdownalert');
 
 var _reactNativeDropdownalert2 = babelHelpers.interopRequireDefault(_reactNativeDropdownalert);
 
-var _reactNativeFileProvider = require('react-native-file-provider');
-
-var _reactNativeFileProvider2 = babelHelpers.interopRequireDefault(_reactNativeFileProvider);
-
 var _reactNativeSound = require('react-native-sound');
 
 var _reactNativeSound2 = babelHelpers.interopRequireDefault(_reactNativeSound);
@@ -97,7 +93,6 @@ var Recordings = function (_Component) {
       };
 
       return _reactNative.PermissionsAndroid.request(_reactNative.PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale).then(function (result) {
-        console.log('Permission result:', result);
         return result === true || result === _reactNative.PermissionsAndroid.RESULTS.GRANTED;
       });
     }
@@ -105,10 +100,9 @@ var Recordings = function (_Component) {
     key: '_buttonValue',
     value: function _buttonValue(title, onPress, active) {
       var style = active ? styles.activeButtonText : styles.buttonText;
-
       return _react2.default.createElement(
-        _reactNative.TouchableHighlight,
-        { onPress: onPress },
+        _reactNative.TouchableOpacity,
+        { activeOpactiy: .5, onPress: onPress },
         _react2.default.createElement(_reactNative.Image, { style: styles.buttonImage, source: title })
       );
     }
@@ -121,42 +115,40 @@ var Recordings = function (_Component) {
           switch (_context.prev = _context.next) {
             case 0:
               if (this.state.recording) {
-                _context.next = 3;
+                _context.next = 2;
                 break;
               }
 
-              console.warn('Can\'t pause, not recording!');
               return _context.abrupt('return');
 
-            case 3:
-
+            case 2:
               this.setState({ stoppedRecording: true, recording: false });
-
-              _context.prev = 4;
-              _context.next = 7;
+              _context.prev = 3;
+              _context.next = 6;
               return regeneratorRuntime.awrap(_reactNativeAudio.AudioRecorder.pauseRecording());
 
-            case 7:
+            case 6:
               filePath = _context.sent;
 
               if (_reactNative.Platform.OS === 'android') {
                 this._finishRecording(true, filePath);
+                this.showPauseAlert();
               }
-              _context.next = 14;
+              _context.next = 13;
               break;
 
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context['catch'](4);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context['catch'](3);
 
               console.error(_context.t0);
 
-            case 14:
+            case 13:
             case 'end':
               return _context.stop();
           }
         }
-      }, null, this, [[4, 11]]);
+      }, null, this, [[3, 10]]);
     }
   }, {
     key: '_stop',
@@ -167,46 +159,44 @@ var Recordings = function (_Component) {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (this.state.recording) {
-                _context2.next = 3;
+                _context2.next = 2;
                 break;
               }
 
-              console.warn('Can\'t stop, not recording!');
               return _context2.abrupt('return');
 
-            case 3:
-
+            case 2:
               this.setState({ stoppedRecording: true, recording: false });
               this.setState({ currentTime: 0 });
 
-              _context2.prev = 5;
-              _context2.next = 8;
+              _context2.prev = 4;
+              _context2.next = 7;
               return regeneratorRuntime.awrap(_reactNativeAudio.AudioRecorder.stopRecording());
 
-            case 8:
+            case 7:
               filePath = _context2.sent;
-
 
               if (_reactNative.Platform.OS === 'android') {
                 this._finishRecording.bind(true, filePath);
+                this.showAlert();
                 this.props.recordTime(this.state.time);
                 this.props.audioPath(this.state.audioPath);
                 this.props.recording(this.state.recording);
               }
               return _context2.abrupt('return', filePath);
 
-            case 13:
-              _context2.prev = 13;
-              _context2.t0 = _context2['catch'](5);
+            case 12:
+              _context2.prev = 12;
+              _context2.t0 = _context2['catch'](4);
 
               console.error(_context2.t0);
 
-            case 16:
+            case 15:
             case 'end':
               return _context2.stop();
           }
         }
-      }, null, this, [[5, 13]]);
+      }, null, this, [[4, 12]]);
     }
   }, {
     key: '_record',
@@ -216,59 +206,36 @@ var Recordings = function (_Component) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              if (!this.state.recording) {
-                _context3.next = 3;
-                break;
-              }
-
-              console.warn('Already recording!');
-              return _context3.abrupt('return');
-
-            case 3:
-              if (this.state.hasPermission) {
-                _context3.next = 6;
-                break;
-              }
-
-              console.warn('Can\'t record, no permission granted!');
-              return _context3.abrupt('return');
-
-            case 6:
-
               if (this.state.stoppedRecording) {
                 this.prepareRecordingPath(this.state.audioPath);
               }
-
               this.setState({ recording: true });
-
-              _context3.prev = 8;
-              _context3.next = 11;
+              _context3.prev = 2;
+              _context3.next = 5;
               return regeneratorRuntime.awrap(_reactNativeAudio.AudioRecorder.startRecording());
 
-            case 11:
+            case 5:
               filePath = _context3.sent;
-              _context3.next = 17;
+              _context3.next = 11;
               break;
 
-            case 14:
-              _context3.prev = 14;
-              _context3.t0 = _context3['catch'](8);
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3['catch'](2);
 
               console.error(_context3.t0);
 
-            case 17:
+            case 11:
             case 'end':
               return _context3.stop();
           }
         }
-      }, null, this, [[8, 14]]);
+      }, null, this, [[2, 8]]);
     }
   }, {
     key: '_finishRecording',
     value: function _finishRecording(didSucceed, filePath) {
       this.setState({ finished: didSucceed });
-      this.showAlert();
-      console.log('Finished recording of duration ' + this.state.currentTime + ' seconds at path: ' + filePath);
     }
   }, {
     key: 'onClose',
@@ -283,8 +250,12 @@ var Recordings = function (_Component) {
   }, {
     key: 'showAlert',
     value: function showAlert() {
-      alert("hi");
-      this.dropdown.alertWithType('error', 'Error #', "Voice Recorded");
+      this.dropdown.alertWithType('success', 'Recorder #', "Voice Recorded");
+    }
+  }, {
+    key: 'showPauseAlert',
+    value: function showPauseAlert() {
+      this.dropdown.alertWithType('warn', 'Recorder #', "Voice Paused");
     }
   }, {
     key: 'render',
@@ -381,7 +352,6 @@ var styles = _reactNative.StyleSheet.create({
     fontSize: 15,
     color: "#B81F00"
   }
-
 });
 
 _reactNative.AppRegistry.registerComponent('Recordings', function () {
